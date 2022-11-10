@@ -4,7 +4,7 @@
 // get all the tools we need
 var express = require('express');
 var app = express();
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8000;
 const MongoClient = require('mongodb').MongoClient
 var mongoose = require('mongoose');
 //what we use to talk to out mongodb
@@ -24,11 +24,14 @@ var configDB = require('./config/database.js');
 //require is a function call. its saying hey run this thing. its calling the object
 var db
 
+var ObjectId = require('mongodb').ObjectId
+//special function^ that turns a string ID into a object ID. it turns it into something that MongoDb can read. Mongo only used OBJECT IDs not STRING IDs you dumdum  c:
+
 // configuration ===============================================================
 mongoose.connect(configDB.url, (err, database) => {
   if (err) return console.log(err)
   db = database
-  require('./app/routes.js')(app, passport, db);
+  require('./app/routes.js')(app, passport, db, ObjectId);
 }); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration

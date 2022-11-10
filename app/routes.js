@@ -1,4 +1,4 @@
-module.exports = function (app, passport, db) {
+module.exports = function (app, passport, db, ObjectId) {
 
   // normal routes ===============================================================
 
@@ -9,12 +9,18 @@ module.exports = function (app, passport, db) {
 
   // PROFILE SECTION =========================
   app.get('/profile', isLoggedIn, function (req, res) {
-    db.collection('messages').find().toArray((err, result) => {
+    db.collection('cards').find().toArray((err, result) => {
       if (err) return console.log(err)
       res.render('profile.ejs', {
         user: req.user,
-        messages: result
+        cards: result
       })
+    })
+  });
+  app.get('/getCardFromDB', isLoggedIn, function (req, res) {
+    db.collection('cards').find().toArray((err, result) => {
+      res.send(result)
+      //this grabs the cards form the db and sends it to the main.js file in the form of an array
     })
   });
 
@@ -28,11 +34,11 @@ module.exports = function (app, passport, db) {
 
   // message board routes ===============================================================
   //===============================================================================
-  app.post('/messages', (req, res) => {
-    db.collection('messages').save({
-      name: req.body.name,
-      msg: req.body.msg,
-      thumbUp: 0, thumbDown: 0
+  app.post('/cards', (req, res) => {
+    db.collection('cards').save({
+      front: req.body.front,
+      back: req.body.back,
+      // thumbUp: 0, thumbDown: 0
     }, (err, result) => {
       if (err) return console.log(err)
       console.log('saved to database')
@@ -40,14 +46,14 @@ module.exports = function (app, passport, db) {
     })
   })
   // thumbup ==============================
-  app.put('/thumbup', (req, res) => {
-    db.collection('messages')
+  app.put('/edit', (req, res) => {
+    db.collection('cards')
       .findOneAndUpdate({
-        name: req.body.name,
-        msg: req.body.msg
+        _id: ObjectId(req.body._id)
       }, {
         $set: {
-          thumbUp: req.body.thumbUp + 1
+          front: req.body.front,
+          back: req.body.back
         }
 
       }, {
@@ -59,35 +65,35 @@ module.exports = function (app, passport, db) {
         res.send(result)
       })
   })
-  // thumbdown ==============================
-  app.put('/thumbdown', (req, res) => {
-    db.collection('messages')
-      .findOneAndUpdate({
-        name: req.body.name,
-        msg: req.body.msg
-      }, {
-        $set: {
-          thumbUp: req.body.thumbUp - 1
-        }
 
-      }, {
-        sort: { _id: -1 },
-        upsert: true
-      }, (err, result) => {
-        if (err) return res.send(err)
-        res.send(result)
-      })
-  })
-
-  app.delete('/messages', (req, res) => {
-    db.collection('messages').findOneAndDelete({
-      name: req.body.name,
-      msg: req.body.msg
+  app.delete('/delete', (req, res) => {
+    db.collection('cards').findOneAndDelete({
+      _id: ObjectId(req.body._id)
     }, (err, result) => {
       if (err) return res.send(500, err)
       res.send('Message deleted!')
     })
   })
+  // // thumbdown ==============================
+  // app.put('/thumbdown', (req, res) => {
+  //   db.collection('cards')
+  //     .findOneAndUpdate({
+  //       front: req.body.front,
+  //       back: req.body.back
+  //     }, {
+  //       $set: {
+  //         thumbUp: req.body.thumbUp - 1
+  //       }
+
+  //     }, {
+  //       sort: { _id: -1 },
+  //       upsert: true
+  //     }, (err, result) => {
+  //       if (err) return res.send(err)
+  //       res.send(result)
+  //     })
+  // })
+
   //============================================================================
   // ===========================================================================
 
@@ -106,7 +112,7 @@ module.exports = function (app, passport, db) {
   app.post('/login', passport.authenticate('local-login', {
     successRedirect: '/profile', // redirect to the secure profile section
     failureRedirect: '/login', // redirect back to the signup page if there is an error
-    failureFlash: true // allow flash messages
+    failureFlash: true // allow flash cards
   }));
 
   // SIGNUP =================================
@@ -119,7 +125,7 @@ module.exports = function (app, passport, db) {
   app.post('/signup', passport.authenticate('local-signup', {
     successRedirect: '/profile', // redirect to the secure profile section
     failureRedirect: '/signup', // redirect back to the signup page if there is an error
-    failureFlash: true // allow flash messages
+    failureFlash: true // allow flash cards
   }));
 
   // =============================================================================

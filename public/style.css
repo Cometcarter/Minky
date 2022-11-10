@@ -1,7 +1,11 @@
-body{
-  padding-top:80px;
-  word-wrap:break-word;
+body {
+  word-wrap: break-word;
 }
-img{
+
+img {
   height: 200px;
+}
+
+.well {
+  display: none;
 }
