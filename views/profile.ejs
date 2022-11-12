@@ -3,7 +3,8 @@
 
 <head>
   <title>Minky</title>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
   <link rel="stylesheet" href="style.css">
   <script src="https://kit.fontawesome.com/c4a1e0a68e.js" crossorigin="anonymous"></script>
@@ -14,69 +15,66 @@
 
     <nav class="page-header text-center">
       <h1><span><i class="fa-solid fa-otter"></i></span></h1>
-      <h1>Minky<span></span><i class="fa-solid fa-paw"></i></span></h1>
+      <h1>Minky</h1>
 
-      <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+      <a href="/logout" class="btn btn-default btn-dark">Logout</a>
     </nav>
 
     <div class="row">
-
       <!-- LOCAL INFORMATION -->
-      <!-- <div class="col-sm-6">
+      <div class="col-sm-6">
         <div class="well">
-          <h3><span class="fa fa-user"></span> Local</h3>
-
-          <% if (user.local.email) { %>
-            <p>
-              <strong>id</strong>: <%= user._id %><br>
-                <strong>email</strong>: <%= user.local.email %><br>
-                  <strong>password</strong>: <%= user.local.password %>
-            </p>
-
-            <a href="/unlink/local" class="btn btn-default">Unlink</a>
-            <% } else { %>
-              <a href="/connect/local" class="btn btn-default">Connect Local</a>
-              <% } %> 
-        </div>-->
-    </div>
-    <div class="container1">
-      <div class="s1title">
-        <h2>Add a Flash Cards</h2>
-      </div>
-      <div class="form">
-        <% if (user.local.email) { %>
-          <form action="/cards" method="POST">
-            <textarea placeholder="Enter front of card" name="front" required></textarea>
-            <textarea placeholder="Enter back of card" name="back" required></textarea>
-            <button type="submit">Add</button>
-          </form>
-      </div>
-    </div>
-    <% } %>
-
-
-
-      <div class="container2">
-
-        <div class="s2title">
-          <h3>Study your Flash Cards</h3>
+          <div class="container1">
+            <h2 class="s1title">Add a Flash Cards</h2>
+            <div class="form">
+              <% if (user.local.email) { %>
+                <form action="/cards" method="POST">
+                  <textarea class="form-control" placeholder="Enter front of card" name="front" required></textarea>
+                  <textarea class="form-control" placeholder="Enter back of card" name="back" required></textarea>
+                  <button type="submit" class="btn btn-light m-3 add">Add</button>
+                </form>
+            </div>
+          </div>
+          <% } %>
         </div>
-        <div>
-          <div class="container-front">Front</div>
-          <div class="container-back">Back</div>
-          <div>
-            <i class="fa-solid fa-arrow-left"></i>
-            <i class="fa-solid fa-arrow-right"></i>
-            <button class="edit" onclick="editCards()">Edit</button>
-            <button class="save" onclick="saveCardtoDB()">Save</button>
-            <button class="delete" onclick="deleteForever()">Delete</button>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="well">
+
+          <div class="container2 d-flex">
+            <div class="position"><i class="fa-solid fa-arrow-left"></i></div>
+
+            <div class="position d-flex flex-column">
+              <h3>Study your Flash Cards</h3>
+              <div class="card" style="width: 30rem;">
+                <div class="card-body">
+                  <h2 class="card-title">Front</h2>
+                  <h6 class="card-text mb-2 text-muted container-front"></h6>
+                </div>
+                <hr>
+                <div class="card-body">
+                  <h2 class="card-title">Back</h2>
+                  <h6 class="card-text mb-2 text-muted container-back"></h6>
+                </div>
+              </div>
+              <div class="profile-btn">
+                <button class="edit btn btn-light m-3" onclick="editCards()">Edit</button>
+                <button class="save btn btn-light m-3" onclick="saveCardtoDB()">Save</button>
+                <button class="delete btn btn-light m-3" onclick="deleteForever()">Delete</button>
+              </div>
+
+            </div>
+            <div class="position"><i class="fa-solid fa-arrow-right"></i></div>
           </div>
         </div>
-
       </div>
-  </div>
+    </div>
 
-  <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"></script>
+    <script src="main.js"></script>
 
 </body>
 

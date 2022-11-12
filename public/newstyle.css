@@ -1,0 +1,9 @@
+body {
+    background-image: url(./mink.gif);
+    background-size: cover;
+}
+
+.minky {
+    font-family: 'Chonburi', cursive;
+    font-size: xxx-large;
+}

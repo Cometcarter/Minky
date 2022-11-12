@@ -1,5 +1,9 @@
 body {
   word-wrap: break-word;
+  caret-color: transparent;
+}
+.full-background {
+  background-image: url(./mink.gif);
 }
 
 img {
@@ -7,5 +11,48 @@ img {
 }
 
 .well {
-  display: none;
+  display: flex;
+  background-color: mediumturquoise;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
+  height: 70vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.position {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fa-solid {
+  margin: 10px;
+  font-size: 30px;
+  align-items: center
+}
+
+.card-body {
+  height: 200px;
+  width: 200px;
+}
+
+.container1 .form-control {
+  display: flex;
+  height: 200px;
+  width: 30rem;
+}
+
+.add {
+  width: -webkit-fill-available;
+}
+
+.s1title {
+  text-align: center;
+}
+
+.minky {
+  font-family: 'Chonburi', cursive;
 }
